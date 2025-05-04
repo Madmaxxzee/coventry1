@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       projectId
     };
 
-    await fetch("/submit-lead", {
+    await fetch("https://www.sprecrm.com/submit-lead", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       projectId
     };
 
-    const res = await fetch("/submit-lead", {
+    const res = await fetch("https://www.sprecrm.com/submit-lead", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
