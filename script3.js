@@ -126,3 +126,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (e.target === modal) closeModal();
   };
 });
+//tested
