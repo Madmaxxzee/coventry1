@@ -1,16 +1,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const projectId = "103";
+  const projectId = "102";
   const base = `/media/${projectId}`;
   const downloadState = { file: null };
 
-  const data = await fetch(`/projects/${projectId}.json`).then(res => res.json());
+  const data = await fetch(`/projects/${projectId}.json`).then((res) =>
+    res.json()
+  );
   document.getElementById("projectTitle").textContent = data.title;
   document.getElementById("projectSubtitle").textContent = data.tagline;
   document.getElementById("projectDescription").textContent = data.description;
 
   // Gallery
   const gallery = document.getElementById("galleryGrid");
-  data.gallery?.forEach(img => {
+  data.gallery?.forEach((img) => {
     const div = document.createElement("div");
     div.innerHTML = `<img src="${base}/gallery/${img}" alt="${img}" />`;
     gallery.appendChild(div);
@@ -18,11 +20,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Layouts
   const layoutImgs = [
-    "1bhk_layout.png", "2bhk_layout.png",
-    "3bhk_layout.png", "townhouse_layout.png", "penthouse_layout.png"
+    "studio_layout.jpg",
+    "1bhk_layout.png",
+    "2bhk_layout.png",
+    "1bhk2_layout.jpg",
   ];
   const unitGrid = document.getElementById("unitGrid");
-  layoutImgs.forEach(file => {
+  layoutImgs.forEach((file) => {
     const name = file.split("_")[0].toUpperCase();
     const div = document.createElement("div");
     div.innerHTML = `<img src="${base}/layouts/${file}" alt="${name}"><p>${name}</p>`;
@@ -31,8 +35,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Amenities
   const amenitiesGrid = document.getElementById("amenitiesGrid");
-  const amenitiesRaw = await fetch(`${base}/amenities/amenities.txt`).then(res => res.text());
-  amenitiesRaw.split("\n").forEach(line => {
+  const amenitiesRaw = await fetch(`${base}/amenities/amenities.txt`).then(
+    (res) => res.text()
+  );
+  amenitiesRaw.split("\n").forEach((line) => {
     const [file, label] = line.trim().split("|");
     if (file && label) {
       const div = document.createElement("div");
@@ -50,33 +56,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   const phoneField = document.querySelector("#phone");
   const modalPhone = document.querySelector("#modalPhone");
   const iti = window.intlTelInput(phoneField, {
-    initialCountry: "ae", separateDialCode: true,
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+    initialCountry: "ae",
+    separateDialCode: true,
+    utilsScript:
+      "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
   });
   const itiModal = window.intlTelInput(modalPhone, {
-    initialCountry: "ae", separateDialCode: true,
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+    initialCountry: "ae",
+    separateDialCode: true,
+    utilsScript:
+      "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
   });
 
   // Register Form
-  document.getElementById("registerForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = `${document.getElementById("firstName").value} ${document.getElementById("lastName").value}`;
-    const payload = {
-      name,
-      email: document.getElementById("email").value,
-      phone: iti.getNumber(),
-      projectId
-    };
+  document
+    .getElementById("registerForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = `${document.getElementById("firstName").value} ${
+        document.getElementById("lastName").value
+      }`;
+      const payload = {
+        name,
+        email: document.getElementById("email").value,
+        phone: iti.getNumber(),
+        projectId,
+      };
 
-    await fetch("https://www.sprecrm.com/submit-lead", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      await fetch("https://www.sprecrm.com/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      alert("Lead submitted. Our team will contact you.");
+      e.target.reset();
     });
-
-    alert("Lead submitted. Our team will contact you.");
-    e.target.reset();
-  });
 
   // Modal Logic
   function openModal(filePath) {
@@ -90,9 +105,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Trigger Buttons
-  document.getElementById("downloadBrochureBtn").onclick = () => openModal(`${base}/downloads/brochure.pdf`);
-  document.getElementById("downloadFloorplanBtn").onclick = () => openModal(`${base}/downloads/floorplans.pdf`);
-  document.getElementById("downloadPaymentBtn").onclick = () => openModal(`${base}/downloads/payment_plan.pdf`);
+  document.getElementById("downloadBrochureBtn").onclick = () =>
+    openModal(`${base}/downloads/brochure.pdf`);
+  document.getElementById("downloadFloorplanBtn").onclick = () =>
+    openModal(`${base}/downloads/floorplans.pdf`);
+  document.getElementById("downloadPaymentBtn").onclick = () =>
+    openModal(`${base}/downloads/payment_plan.pdf`);
 
   // Modal Form Submit
   document.getElementById("modalForm").addEventListener("submit", async (e) => {
@@ -101,12 +119,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       name: document.getElementById("modalName").value,
       email: document.getElementById("modalEmail").value,
       phone: itiModal.getNumber(),
-      projectId
+      projectId,
     };
 
     const res = await fetch("https://www.sprecrm.com/submit-lead", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
 
     if (res.ok && downloadState.file) {

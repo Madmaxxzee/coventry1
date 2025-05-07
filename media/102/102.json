@@ -1,0 +1,60 @@
+{
+  "id": "102",
+  "template": "template3",
+  "title": "Coventry",
+  "tagline": "A SANCTUARY OF SERENE LIVING",
+  "description": "Coventry is a thoughtfully designed residential experience where calm, comfort, and contemporary design come together. Surrounded by lush landscapes and crafted for peaceful everyday living, Coventry is more than a home — it’s a serene retreat in the heart of the city.",
+  "location": {
+    "lat": 25.1267,
+    "lng": 55.3865
+  },
+  "hero": "media/104/hero.jpg",
+  "gallery": [
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    "6.jpg",
+    "aerial.jpg",
+    "Aerial2.jpg",
+    "Lobby.jpg",
+    "Night.jpg",
+    "pool.jpg",
+    "Seating1.jpg",
+    "seating2.jpg",
+    "Seating3.jpg",
+    "Seating5.jpg",
+    "Seating6.jpg",
+    "Seating7.jpg",
+    "Seating8.jpg",
+    "Topview.jpg"
+  ],
+  "unit_types": [
+    {
+      "title": "Studio",
+      "price": "850K AED",
+      "image": "layouts/studio_layout.jpg"
+    },
+    {
+      "title": "1BHK",
+      "price": "1.2M AED",
+      "image": "layouts/1bhk_layout.jpg"
+    },
+    {
+      "title": "1BHK Type 2",
+      "price": "1.35M AED",
+      "image": "layouts/1bhk2_layout.jpg"
+    },
+    {
+      "title": "2BHK",
+      "price": "1.75M AED",
+      "image": "layouts/2bhk_layout.jpg"
+    }
+  ],
+  "downloads": {
+    "brochure": "downloads/brochure.pdf",
+    "floorplans": "downloads/floorplans.pdf",
+    "paymentplan": "downloads/payment_plan.pdf"
+  }
+}
