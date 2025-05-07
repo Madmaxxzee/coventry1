@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const gallery = document.getElementById("galleryGrid");
   data.gallery?.forEach((img) => {
     const div = document.createElement("div");
-    div.innerHTML = `<img src="${base}/gallery/${img}" alt="${img}" />`;
+    div.innerHTML = `<img src="${base}/Gallery/${img}" alt="${img}" />`;
     gallery.appendChild(div);
   });
 
